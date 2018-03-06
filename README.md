@@ -1,2 +1,2 @@
 # FreeSMS
-Send free sms programatically
+Send free sms programatically using php.
