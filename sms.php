@@ -43,17 +43,13 @@ class WAY2SMSClient
         if (curl_errno($this->curl))
             return "access error : " . curl_error($this->curl);
         // Check for proper login
-        //echo curl_getinfo($this->curl, CURLINFO_EFFECTIVE_URL);
         $pos = stripos(curl_getinfo($this->curl, CURLINFO_EFFECTIVE_URL), "main.action");
-        //echo "---"; var_dump($pos); echo "-*-";
         if ($pos === "FALSE" || $pos == 0 || $pos == "")
             return "invalid login";
         // Set the home page from where we can send message
         $this->refurl = curl_getinfo($this->curl, CURLINFO_EFFECTIVE_URL);
-        //echo '-refurl-'. $this->refurl.'-';die;
         // Extract the token from the URL
         $this->jstoken = substr($this->refurl, stripos($this->refurl,"?Token=")+7, 37);
-        //echo '-token-'.$this->jstoken; die;
         //Go to the homepage
         $text = curl_exec($this->curl);
         return true;
@@ -66,7 +62,7 @@ class WAY2SMSClient
     function send($phone, $msg)
     {
         $result = array();
-        // Check the message
+        // Check the message.
         if (trim($msg) == "" || strlen($msg) == 0)
             return "invalid message";
         // Take only the first 140 characters of the message
